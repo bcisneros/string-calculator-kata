@@ -18,7 +18,7 @@ public class StringCalculatorTests {
     private StringCalculator calculator;
 
     @Rule
-    public ExpectedException exception = ExpectedException.none();
+    public final ExpectedException exception = ExpectedException.none();
 
     @Before
     public void setUp() throws Exception {
