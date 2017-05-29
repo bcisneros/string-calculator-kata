@@ -1,14 +1,12 @@
 package com.developersdelicias;
 
 class StringCalculator {
-    int sum(String parameters) {
+    int sum(String values) {
+        validateNotNull(values);
+        return isEmpty(values) ? 0 : sumOf(values);
+    }
 
-        if (parameters == null)
-            throw new InvalidNumberException();
-
-        if (isEmpty(parameters))
-            return 0;
-
+    private int sumOf(String parameters) {
         String[] stringValues = parameters.split(",");
 
         int result = 0;
@@ -19,16 +17,25 @@ class StringCalculator {
         return result;
     }
 
-    private boolean isEmpty(String parameters) {
-        return "".equals(parameters.trim());
+    private void validateNotNull(String values) {
+        if (values == null)
+            throw new InvalidNumberException();
     }
 
-    private int toInteger(String value) {
-        String trimValue = value.trim();
-        if (!trimValue.matches("[-]?[0-9]+")) {
-            throw new InvalidNumberException(trimValue);
+    private boolean isEmpty(String values) {
+        return "".equals(values.trim());
+    }
+
+    private int toInteger(final String value) {
+        String trimmedValue = value.trim();
+        if (notAnInteger(trimmedValue)) {
+            throw new InvalidNumberException(trimmedValue);
         }
 
-        return Integer.parseInt(trimValue);
+        return Integer.parseInt(trimmedValue);
+    }
+
+    private boolean notAnInteger(String value) {
+        return !value.matches("[-]?[0-9]+");
     }
 }
